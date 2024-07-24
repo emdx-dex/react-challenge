@@ -116,3 +116,10 @@ Develop a ReactJS application that tracks real-time cryptocurrency prices using 
 - Submit a pull request with a detailed README explaining your approach, any challenges faced, and instructions on how to run the application.
 - Ensure your code is well-documented and follows best practices.
 
+#### Bonus points
+
+- Add Dockerfile recipe to seamless run the application using Docker runtime.
+
+##### Misc
+
+Free API/WS endpoints can be found here: https://www.okx.com/okx-api
