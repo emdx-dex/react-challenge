@@ -11,6 +11,7 @@ export interface DropdownOption {
 export interface DropdownProps {
   options: DropdownOption[];
   value: DropdownOption[];
+  placeholder?: string;
   id?: string;
   name?: string;
   onChange?: (option: DropdownOption) => void;
@@ -18,7 +19,15 @@ export interface DropdownProps {
 }
 
 export const Dropdown = memo<DropdownProps>(
-  ({ options, value, id, name, onChange, onBlur }) => {
+  ({
+    options,
+    value,
+    placeholder = "Placeholder",
+    id,
+    name,
+    onChange,
+    onBlur,
+  }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +47,7 @@ export const Dropdown = memo<DropdownProps>(
           {value.length ? (
             value.map((v) => v.label).join(", ")
           ) : (
-            <span style={{ color: "grey" }}>Placeholder</span>
+            <span style={{ color: "grey" }}>{placeholder}</span>
           )}
         </button>
         {isOpen && (
