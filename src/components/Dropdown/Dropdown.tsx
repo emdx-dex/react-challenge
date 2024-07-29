@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { useClickOutside } from "../../hooks/useClickOutside";
 
+import "../../styles/reset.css";
 import styles from "./dropdown.module.css";
 
 export interface DropdownClasses {
