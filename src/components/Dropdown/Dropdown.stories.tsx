@@ -5,13 +5,6 @@ import { Dropdown } from "./Dropdown";
 const meta = {
   component: Dropdown,
   tags: ["autodocs"],
-} satisfies Meta<typeof Dropdown>;
-
-export default meta;
-
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
   args: {
     options: [
       {
@@ -31,4 +24,12 @@ export const Default: Story = {
     onChange: fn(),
     onBlur: fn(),
   },
+} satisfies Meta<typeof Dropdown>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {},
 };

@@ -13,16 +13,40 @@ export interface DropdownOption {
 }
 
 export interface DropdownProps {
+  /**
+   * Array of options to be displayed in the dropdown menu.
+   * Each option should include a label and a value.
+   */
   options: DropdownOption[];
+  /**
+   * Array of selected options.
+   * Each selected option should match the structure of the options array.
+   */
   value: DropdownOption[];
+  /**
+   * Placeholder text displayed when no option is selected.
+   */
   placeholder?: string;
+  /**
+   * The id attribute for the dropdown component.
+   */
   id?: string;
+  /**
+   * The name attribute for the dropdown component.
+   */
   name?: string;
+  /**
+   * Callback invoked when an option is selected.
+   * It receives the selected option as a parameter.
+   */
   onChange?: (option: DropdownOption) => void;
+  /**
+   * Callback invoked when the dropdown loses focus.
+   */
   onBlur?: () => void;
 }
 
-export const Dropdown = memo<DropdownProps>(
+export const Dropdown = memo(
   ({
     options,
     value,
@@ -31,7 +55,7 @@ export const Dropdown = memo<DropdownProps>(
     name,
     onChange,
     onBlur,
-  }) => {
+  }: DropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
