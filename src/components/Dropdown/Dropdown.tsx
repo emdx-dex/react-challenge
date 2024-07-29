@@ -1,5 +1,6 @@
 import { memo, useCallback, useRef, useState } from "react";
 import classNames from "classnames";
+import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { useClickOutside } from "../../hooks/useClickOutside";
 
 import styles from "./dropdown.module.css";
@@ -62,8 +63,16 @@ export const Dropdown = memo<DropdownProps>(
               {placeholder}
             </div>
           )}
-          <div className={styles.caret}>v</div>
+
+          <div className={styles.caret}>
+            {isOpen ? (
+              <IoChevronUp size="1rem" />
+            ) : (
+              <IoChevronDown size="1rem" />
+            )}
+          </div>
         </button>
+
         {isOpen && (
           <DropdownList
             id={id}

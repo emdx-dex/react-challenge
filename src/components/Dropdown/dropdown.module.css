@@ -1,5 +1,6 @@
 .dropdown {
-  width: 252px;
+  width: 100%;
+  max-width: 252px;
   position: relative;
   user-select: none;
 
@@ -24,12 +25,13 @@
   background: #fff;
 
   display: grid;
-  grid-template-columns: auto 12px;
+  grid-template-columns: auto 1rem;
 }
 
 .button:hover,
 .buttonOpen {
   border-color: #222;
+  color: #222;
 }
 
 .buttonLabel {
@@ -44,12 +46,12 @@
 }
 
 .caret {
-  /* TODO */
+  display: flex;
+  align-items: center;
 }
 
 .menu {
   position: absolute;
-
   width: 100%;
   border: 1px solid #222;
   border-radius: 4px;
