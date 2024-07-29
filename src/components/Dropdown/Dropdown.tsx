@@ -1,5 +1,8 @@
 import { memo, useCallback, useRef, useState } from "react";
+import classNames from "classnames";
 import { useClickOutside } from "../../hooks/useClickOutside";
+
+import styles from "./dropdown.module.css";
 
 export interface DropdownOption {
   id: string | number;
@@ -34,7 +37,7 @@ export const Dropdown = memo<DropdownProps>(
     const handleClickOutside = useCallback(() => setIsOpen(false), []);
 
     return (
-      <div onBlur={onBlur} ref={dropdownRef} style={{ background: "orange" }}>
+      <div onBlur={onBlur} ref={dropdownRef} className={styles.dropdown}>
         <button
           id={id}
           name={name}
@@ -43,12 +46,23 @@ export const Dropdown = memo<DropdownProps>(
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           onClick={() => setIsOpen((open) => !open)}
+          className={classNames(styles.button, { [styles.buttonOpen]: isOpen })}
         >
           {value.length ? (
-            value.map((v) => v.label).join(", ")
+            <div className={styles.buttonLabel}>
+              {value.map((v) => v.label).join(", ")}
+            </div>
           ) : (
-            <span style={{ color: "grey" }}>{placeholder}</span>
+            <div
+              className={classNames(
+                styles.buttonLabel,
+                styles.buttonPlaceholder
+              )}
+            >
+              {placeholder}
+            </div>
           )}
+          <div className={styles.caret}>v</div>
         </button>
         {isOpen && (
           <DropdownList
@@ -93,9 +107,10 @@ const DropdownList = memo<DropdownListProps>(
           id={menuId}
           aria-labelledby={id}
           aria-orientation="vertical"
+          className={styles.menu}
         >
           {options.map((option, i) => (
-            <li role="option" key={`${id}-${i}`}>
+            <li role="option" key={`${id}-${i}`} className={styles.menuItem}>
               <label>
                 {option.label}
                 <input
