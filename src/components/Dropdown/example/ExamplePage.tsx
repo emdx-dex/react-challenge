@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import { Dropdown, type DropdownOption } from "../components/Dropdown/Dropdown";
+import { Dropdown, type DropdownOption } from "../Dropdown";
 
 export const ExamplePage = () => {
   const [value1, setValue1] = useState<DropdownOption[]>([]);

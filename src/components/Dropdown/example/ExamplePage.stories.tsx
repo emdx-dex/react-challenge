@@ -3,8 +3,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ExamplePage } from "./ExamplePage";
 
 const meta = {
+  title: "Components/Dropdown/Example",
   component: ExamplePage,
-  tags: ["autodocs"],
 } satisfies Meta<typeof ExamplePage>;
 
 export default meta;
