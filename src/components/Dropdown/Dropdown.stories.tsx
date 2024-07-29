@@ -21,6 +21,20 @@ const meta = {
       },
     ],
     value: [],
+    classes: {
+      root: "",
+      button: {
+        root: "",
+        open: "",
+        label: "",
+        placeholder: "",
+        caret: "",
+      },
+      menu: {
+        root: "",
+        item: "",
+      },
+    },
     onChange: fn(),
     onBlur: fn(),
   },

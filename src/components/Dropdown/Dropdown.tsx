@@ -5,6 +5,21 @@ import { useClickOutside } from "../../hooks/useClickOutside";
 
 import styles from "./dropdown.module.css";
 
+export interface DropdownClasses {
+  root?: string;
+  button?: {
+    root?: string;
+    open?: string;
+    label?: string;
+    placeholder?: string;
+    caret?: string;
+  };
+  menu?: {
+    root?: string;
+    item?: string;
+  };
+}
+
 export interface DropdownOption {
   id: string | number;
   label: React.ReactNode;
@@ -28,13 +43,27 @@ export interface DropdownProps {
    */
   placeholder?: string;
   /**
-   * The id attribute for the dropdown component.
+   * The id attribute for the dropdown element.
    */
   id?: string;
   /**
-   * The name attribute for the dropdown component.
+   * The name attribute for the dropdown element.
    */
   name?: string;
+  /**
+   * Object containing class names for styles customization.
+   * - `root`: Root element of the dropdown.
+   * - `button`: Object containing class names for the dropdown button and its states.
+   *   - `root`: The main button element.
+   *   - `open`: Applied when the dropdown is open.
+   *   - `label`: The label displayed on the button when an option is selected.
+   *   - `placeholder`: The placeholder text displayed when no option is selected.
+   *   - `caret`: The caret icon indicating the dropdown state.
+   * - `menu`: Object containing class names for the dropdown menu and items.
+   *   - `root`: The root element of the dropdown menu.
+   *   - `item`: Applied to each dropdown menu item.
+   */
+  classes?: DropdownClasses;
   /**
    * Callback invoked when an option is selected.
    * It receives the selected option as a parameter.
@@ -53,6 +82,7 @@ export const Dropdown = memo(
     placeholder = "Placeholder",
     id,
     name,
+    classes,
     onChange,
     onBlur,
   }: DropdownProps) => {
@@ -62,7 +92,11 @@ export const Dropdown = memo(
     const handleClickOutside = useCallback(() => setIsOpen(false), []);
 
     return (
-      <div onBlur={onBlur} ref={dropdownRef} className={styles.dropdown}>
+      <div
+        onBlur={onBlur}
+        ref={dropdownRef}
+        className={classNames(styles.dropdown, classes?.root)}
+      >
         <button
           id={id}
           name={name}
@@ -71,24 +105,32 @@ export const Dropdown = memo(
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           onClick={() => setIsOpen((open) => !open)}
-          className={classNames(styles.button, { [styles.buttonOpen]: isOpen })}
+          className={classNames(
+            styles.button,
+            classes?.button?.root,
+            isOpen && [styles.buttonOpen, classes?.button?.open]
+          )}
         >
           {value.length ? (
-            <div className={styles.buttonLabel}>
+            <div
+              className={classNames(styles.buttonLabel, classes?.button?.label)}
+            >
               {value.map((v) => v.label).join(", ")}
             </div>
           ) : (
             <div
               className={classNames(
                 styles.buttonLabel,
-                styles.buttonPlaceholder
+                classes?.button?.label,
+                styles.buttonPlaceholder,
+                classes?.button?.placeholder
               )}
             >
               {placeholder}
             </div>
           )}
 
-          <div className={styles.caret}>
+          <div className={classNames(styles.caret, classes?.button?.caret)}>
             {isOpen ? (
               <IoChevronUp size="1rem" />
             ) : (
@@ -104,6 +146,7 @@ export const Dropdown = memo(
             options={options}
             value={value}
             dropdownRef={dropdownRef}
+            classes={classes}
             onClickOutside={handleClickOutside}
             onChange={onChange}
           />
@@ -122,12 +165,22 @@ interface DropdownListProps {
   options: DropdownOption[];
   value: DropdownOption[];
   dropdownRef: React.RefObject<HTMLElement>;
+  classes: DropdownClasses | undefined;
   onClickOutside: () => void;
   onChange?: (option: DropdownOption) => void;
 }
 
-const DropdownList = memo<DropdownListProps>(
-  ({ id, menuId, options, value, dropdownRef, onClickOutside, onChange }) => {
+const DropdownList = memo(
+  ({
+    id,
+    menuId,
+    options,
+    value,
+    dropdownRef,
+    classes,
+    onClickOutside,
+    onChange,
+  }: DropdownListProps) => {
     useClickOutside({
       ref: dropdownRef,
       handler: onClickOutside,
@@ -140,10 +193,14 @@ const DropdownList = memo<DropdownListProps>(
           id={menuId}
           aria-labelledby={id}
           aria-orientation="vertical"
-          className={styles.menu}
+          className={classNames(styles.menu, classes?.menu?.root)}
         >
           {options.map((option, i) => (
-            <li role="option" key={`${id}-${i}`} className={styles.menuItem}>
+            <li
+              role="option"
+              key={`${id}-${i}`}
+              className={classNames(styles.menuItem, classes?.menu?.item)}
+            >
               <label>
                 {option.label}
                 <input
