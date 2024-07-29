@@ -1,0 +1,84 @@
+.dropdown {
+  --color-active: #222;
+  --color-inactive: #888;
+  --bg-primary: #fff;
+  --bg-secondary: #efefef;
+}
+
+.dropdown {
+  width: 100%;
+  max-width: 15.75rem;
+  position: relative;
+  user-select: none;
+
+  /* font */
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+
+  font-size: 0.75rem;
+  line-height: 1rem;
+
+  color: var(--color-inactive);
+}
+
+.button {
+  width: 100%;
+  padding: 7px 0.75rem;
+  border: 1px solid var(--color-inactive);
+  border-radius: 4px;
+  background: var(--bg-primary);
+
+  display: grid;
+  grid-template-columns: auto 1rem;
+}
+
+.button:hover,
+.button:focus,
+.buttonOpen {
+  border-color: var(--color-active);
+  color: var(--color-active);
+}
+
+.buttonLabel {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--color-active);
+}
+
+.buttonPlaceholder {
+  color: var(--color-inactive);
+}
+
+.caret {
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  position: absolute;
+  width: 100%;
+  border: 1px solid var(--color-active);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  z-index: 1;
+}
+
+.menuItem:hover,
+.menuItem:has(input:focus) {
+  background: var(--bg-secondary);
+  color: var(--color-active);
+}
+
+.menuItem:has(input:checked) {
+  background: #ccc;
+  color: var(--color-active);
+}
+
+.menuItem label {
+  display: block;
+  padding: 0.6rem 0.75rem;
+}
